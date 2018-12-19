@@ -1,17 +1,43 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<style>
+    .character-grid {
+        display: grid;
+        grid-template-areas: 
+            "bio character-img" 
+            "bio character-img";
+        margin-top: 25px;
+    }
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    .bio{
+        grid-area: bio;
+         background: blueviolet;
+         
+    }
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    .bio h2{
+        margin-top: 0px;
+    }
+
+    .character-img {
+        grid-area: character-img;
+    }
+
+</style>
+<div>
+    <div class="wrapper container-fluid">
+        <header class="character-grid">
+            <div class="character-img">
+                <img src="http://x.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/portrait_incredible.jpg" />
+            </div>
+            <div class="bio">
+                <h2>Mr. Fantastic</h2>
+                <p>
+                    Reed Richards was born in Central City, California the only son of wealthy physicist Nathaniel Richards and his wife Evelyn,
+                    was a child prodigy with special aptitude in mathematics, physics, and mechanics. Evelyn died when Reed was seven.
+                </p>
+            </div>
+        </header>
+    </div>
+</div>

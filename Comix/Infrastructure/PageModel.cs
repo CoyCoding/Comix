@@ -7,7 +7,7 @@ namespace Comix.Infrastructure
 {
     public class PageModel
     {
-        public int TotalItems { get { return 1500; } }
+        public int TotalItems { get; set; }
 
         public int ItemsPerPage { get; set; }
 

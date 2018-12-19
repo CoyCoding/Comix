@@ -20,14 +20,21 @@ namespace Comix.Controllers
         }
 
         [HttpGet]
-        public ActionResult About(int currentPage=2, int pageSize=100)
+        public ActionResult About(int currentPage=2, int pageSize=10)
         {
-            var paging = new PageModel { CurrentPage = currentPage, ItemsPerPage = pageSize };
+            
 
             var response = ApiHelper.MarvelClient.FindCharacters(
                 new CharacterRequestFilter {
-                    Offset = paging.Offset, Limit= paging.ItemsPerPage
+                    Offset = currentPage, Limit= pageSize
                 });
+
+            var paging = new PageModel
+            {
+                CurrentPage = currentPage,
+                ItemsPerPage = pageSize,
+                TotalItems = int.Parse(response.Data.Total)
+            };
 
             CharacterListViewModel characterList = new CharacterListViewModel
             {
