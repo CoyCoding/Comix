@@ -1,7 +1,13 @@
 ﻿@{
     ViewBag.Title = "About";
+    var test = Model;
+    
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@Model</h2>
 <h3>@ViewBag.Message</h3>
-
+@foreach(var character in Model)
+{
+    <img src="@character.Thumbnail.Path/portrait_uncanny.jpg"/>
+    <p>@character.Name</p>
+}
 <p>Use this area to provide additional information.</p>
