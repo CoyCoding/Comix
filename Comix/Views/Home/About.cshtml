@@ -1,13 +1,18 @@
-﻿@{
-    ViewBag.Title = "About";
-    var test = Model;
-    
+﻿@using Comix.Models;
+@using Comix.Infrastructure;
+@model CharacterListViewModel
+
+@{
+    ViewBag.Title = "Characters";
 }
-<h2>@Model</h2>
 <h3>@ViewBag.Message</h3>
-@foreach(var character in Model)
+@foreach (var character in Model.Characters)
 {
-    <img src="@character.Thumbnail.Path/portrait_uncanny.jpg"/>
+    <img src="@character.Thumbnail.Path/portrait_uncanny.jpg" />
     <p>@character.Name</p>
 }
-<p>Use this area to provide additional information.</p>
+
+<div style="right: 0" class="btn-group-sm ml-auto m-3">
+    @Html.PagingLinks(Model.PageInfo, pageNum => Url.Action("About", new { currentPage = pageNum, pageSize = 100 }))
+</div>
+
