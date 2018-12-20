@@ -2,47 +2,48 @@
     ViewBag.Title = "Contact";
 }
 <style>
-    .hero {
-        background-image: linear-gradient(to right, red, yellow);
-    }
 
     .character-grid {
         display: grid;
         grid-template-areas: "character-name character-img" "bio character-img";
-        background: linear-gradient(to right, #000000, #000000bf), url(https://i.etsystatic.com/13321089/r/il/1cf2d2/1070657099/il_570xN.1070657099_l1ia.jpg);
+        background: linear-gradient(to right, #0000009e, #000000), 
+            linear-gradient(to bottom, #000000c7, #000000a6), 
+            url(https://i.etsystatic.com/13321089/r/il/1cf2d2/1070657099/il_570xN.1070657099_l1ia.jpg)
     }
 
     .character-name{
         grid-area: character-name;
-        align-self: center;
+        align-self: flex-end;
     }
 
     .bio{
         grid-area: bio;
-        margin-top: 10px;
+        margin: 10px 0 10px 0;
         color: ghostwhite;
     }
 
+    .bio p {
+        margin: 0 5% 10% 10%;
+            text-shadow: 0px 0 2px whitesmoke;
+    }
+
     .character-name h2 {
-        margin: 0px;
+        margin: 0 0 0 5%;
         color: ghostwhite;
-        margin-left: 5%;
+        text-shadow: 0px 0px 10px whitesmoke;
+        font-size: 43px;
     }
 
     .character-img {
         grid-area: character-img;
         z-index: 1;
         position: relative;
-        min-width: 375px;
+        min-width: 250px;
     }
 
     .head-image {
         width: 100%;
         max-width: 540px;
-    }
-
-    .details {
-        background: linear-gradient(to right, red, yellow), url(https://i.etsystatic.com/13321089/r/il/1cf2d2/1070657099/il_570xN.1070657099_l1ia.jpg);
     }
 
     .shadow::after {
@@ -55,7 +56,7 @@
         width: 100%;
     }
 
-    @@media(max-width: 500px) {
+    @@media(max-width: 600px) {
         .character-grid {
             grid-template-areas: "character-name" "character-img" "bio";
             grid-template-rows: none;
@@ -63,13 +64,21 @@
         }
         .character-name h2 {
 
-            margin-left: 0;
+            margin: 10px 0 10px 0;
+        }
+
+        .shadow::after {
+            box-shadow: inset 0px 0px 20px 0px #000000;
+        }
+
+        .bio p {
+            margin: 0 5% 0 5%;
         }
     }
+
 </style>
 <div>
     <div class="wrapper ">
-        <div class="hero">
             <header class="character-grid">
                 <div class="character-img">
                     <div class="shadow">
@@ -86,6 +95,5 @@
                         </p>
                     </div>
             </header>
-        </div>
     </div>
 </div>

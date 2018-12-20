@@ -10,7 +10,8 @@ namespace Comix.Infrastructure
 {
     public static class ApiHelper
     {
-
+        const string publicKey = "111";
+        const string privateKey = "111";
 
         public static MarvelRestClient MarvelClient { get; set; }
 
