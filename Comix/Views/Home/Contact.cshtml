@@ -4,26 +4,39 @@
 <style>
     .character-grid {
         display: grid;
-        grid-template-areas: 
-            "bio character-img" 
-            "bio character-img";
-        margin-top: 25px;
+        grid-template-areas: "character-name character-img" "bio character-img";
+        margin-top: 10px;
+        grid-template-rows: 1fr 3fr;
+        grid-gap: 10px;
+    }
+
+    .character-name{
+        grid-area: character-name;
+        align-self: center;
     }
 
     .bio{
         grid-area: bio;
-         background: blueviolet;
-         
+        margin-top: 10px;
+        padding: 10px;
     }
 
-    .bio h2{
-        margin-top: 0px;
+    .character-name h2{
+        margin: 0px;
     }
 
     .character-img {
         grid-area: character-img;
     }
 
+
+    @@media(max-width: 400px) {
+        .character-grid {
+            grid-template-areas: "character-name" "character-img" "bio";
+            grid-template-rows: none;
+            justify-items: center;
+        }
+    }
 </style>
 <div>
     <div class="wrapper container-fluid">
@@ -31,8 +44,10 @@
             <div class="character-img">
                 <img src="http://x.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/portrait_incredible.jpg" />
             </div>
-            <div class="bio">
+            <div class="character-name">
                 <h2>Mr. Fantastic</h2>
+            </div>
+            <div class="bio">
                 <p>
                     Reed Richards was born in Central City, California the only son of wealthy physicist Nathaniel Richards and his wife Evelyn,
                     was a child prodigy with special aptitude in mathematics, physics, and mechanics. Evelyn died when Reed was seven.
