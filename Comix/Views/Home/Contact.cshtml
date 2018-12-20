@@ -2,12 +2,14 @@
     ViewBag.Title = "Contact";
 }
 <style>
+    .hero {
+        background-image: linear-gradient(to right, red, yellow);
+    }
+
     .character-grid {
         display: grid;
         grid-template-areas: "character-name character-img" "bio character-img";
-        margin-top: 10px;
-        grid-template-rows: 1fr 3fr;
-        grid-gap: 10px;
+        background: linear-gradient(to right, #000000, #000000bf), url(https://i.etsystatic.com/13321089/r/il/1cf2d2/1070657099/il_570xN.1070657099_l1ia.jpg);
     }
 
     .character-name{
@@ -18,41 +20,72 @@
     .bio{
         grid-area: bio;
         margin-top: 10px;
-        padding: 10px;
+        color: ghostwhite;
     }
 
-    .character-name h2{
+    .character-name h2 {
         margin: 0px;
+        color: ghostwhite;
+        margin-left: 5%;
     }
 
     .character-img {
         grid-area: character-img;
+        z-index: 1;
+        position: relative;
+        min-width: 375px;
     }
 
+    .head-image {
+        width: 100%;
+        max-width: 540px;
+    }
 
-    @@media(max-width: 400px) {
+    .details {
+        background: linear-gradient(to right, red, yellow), url(https://i.etsystatic.com/13321089/r/il/1cf2d2/1070657099/il_570xN.1070657099_l1ia.jpg);
+    }
+
+    .shadow::after {
+        box-shadow: inset 10px 0px 20px 0px #000000;
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    @@media(max-width: 500px) {
         .character-grid {
             grid-template-areas: "character-name" "character-img" "bio";
             grid-template-rows: none;
             justify-items: center;
         }
+        .character-name h2 {
+
+            margin-left: 0;
+        }
     }
 </style>
 <div>
-    <div class="wrapper container-fluid">
-        <header class="character-grid">
-            <div class="character-img">
-                <img src="http://x.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/portrait_incredible.jpg" />
-            </div>
-            <div class="character-name">
-                <h2>Mr. Fantastic</h2>
-            </div>
-            <div class="bio">
-                <p>
-                    Reed Richards was born in Central City, California the only son of wealthy physicist Nathaniel Richards and his wife Evelyn,
-                    was a child prodigy with special aptitude in mathematics, physics, and mechanics. Evelyn died when Reed was seven.
-                </p>
-            </div>
-        </header>
+    <div class="wrapper ">
+        <div class="hero">
+            <header class="character-grid">
+                <div class="character-img">
+                    <div class="shadow">
+                        <img class="head-image" src="http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg" />
+                    </div>
+                </div>
+                    <div class="character-name">
+                        <h2>Mr. Fantastic</h2>
+                    </div>
+                    <div class="bio">
+                        <p>
+                            Reed Richards was born in Central City, California the only son of wealthy physicist Nathaniel Richards and his wife Evelyn,
+                            was a child prodigy with special aptitude in mathematics, physics, and mechanics. Evelyn died when Reed was seven.
+                        </p>
+                    </div>
+            </header>
+        </div>
     </div>
 </div>

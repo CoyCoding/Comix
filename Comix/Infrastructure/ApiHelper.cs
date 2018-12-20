@@ -10,7 +10,7 @@ namespace Comix.Infrastructure
 {
     public static class ApiHelper
     {
-     
+
 
         public static MarvelRestClient MarvelClient { get; set; }
 
