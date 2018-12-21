@@ -1,10 +1,16 @@
-﻿@{
+﻿@model string
+
+@{
     ViewBag.Title = "Home Page";
 }
+
+
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/grid.css"/>
 </head>
 
+
+@Model.ToString()
 <div class="grid-container">
     <div class="item item1">1</div>
     <div class="item item2">2</div>

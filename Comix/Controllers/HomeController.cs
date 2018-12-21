@@ -7,16 +7,18 @@ using Comix.Infrastructure;
 using Comix.Models;
 using Marvel.Api.Model.DomainObjects;
 using Marvel.Api.Filters;
+using System.Web.Script.Serialization;
 
 namespace Comix.Controllers
 {
     public class HomeController : Controller
     {
 
-        public ActionResult Index()
+        public JsonResult Index()
         {
-            
-            return View();
+            var response = ApiHelper.HeroContext.GetCharaterId("spider-man");
+            var test = new JavaScriptSerializer().Deserialize<object>(response);
+            return Json(test, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
