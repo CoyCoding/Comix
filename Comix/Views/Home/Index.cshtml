@@ -2,10 +2,8 @@
 
 @{
     ViewBag.Title = "Home Page";
-    var userObj = @Html.Raw(Json.Encode(Model));
-    <head>
+
         <link rel="stylesheet" type="text/css" href="~/Content/grid.css" />
-    </head>
 }
 <style>
     .power-bar {
@@ -13,7 +11,7 @@
         border-radius: 0 50px 50px 0;
         background-color: white;
         overflow: hidden;
-        
+        box-shadow: -2px 0px 11px black inset;
     }
 
     .percent-bar {
@@ -32,29 +30,41 @@
         grid-row: span 5;
     }
 
-    .stat-text{
+    .stat-text {
         background-color: transparent;
+    }
+
+    .bar-text {
+        display: flex;
+        justify-content: flex-end;
+        color: #ffffff;
+        padding: 0px 5px 0 1px;
+        box-shadow: -20px 0px 20px 3px black inset;
     }
 
     .stat-text-bar {
         display: none;
+        
     }
 
-    @@media (max-width: 600px){
+    @@media (max-width: 600px) {
         .grid-container {
             grid-template-columns: 100px 1fr;
             grid-gap: 20px;
         }
     }
 
-    @@media(max-width: 400px){
+    @@media(max-width: 400px) {
         .grid-container {
             grid-template-columns: 1fr;
         }
-        .stat-text{
-           display:none;
+
+        .stat-text {
+            display: none;
         }
+       
     }
+
 
 </style>
 
@@ -67,31 +77,52 @@
     <div class="stat-text">combat</div>
     <div class="power-bar">
         <div class="percent-bar" id="bar1" style=" background: yellow">
-            <div style="">
-                <div class="stat-text-bar">combat</div>
+            <div class="bar-text">
+                <div class="stat-text-bar">Combat-Skill</div>
                 <div class="power-rating">0</div>
 
             </div>
         </div>
     </div>
 
-    <div class="stat-text">["dura"];</div>
+    <div class="stat-text">dura</div>
     <div class="power-bar" style="width: ;">
-        <div class="percent-bar" id="bar2" style="  background: blue">0</div>
+        <div class="percent-bar" id="bar2" style="  background: blue">
+            <div class="bar-text">
+                <div class="stat-text-bar">Durability</div>
+                <div class="power-rating">0</div>
+            </div>
+        </div>
     </div>
 
-    <div class="stat-text">["int"];</div>
+    <div class="stat-text">int";</div>
     <div class="power-bar" style="width: ;">
-        <div class="percent-bar" id="bar3" style=" background: red">0</div>
+        <div class="percent-bar" id="bar3" style=" background: red">
+            <div class="bar-text">
+                <div class="stat-text-bar">Intelligence</div>
+                <div class="power-rating">0</div>
+            </div>
+        </div>
     </div>
 
-    <div class="stat-text">["power"];</div>
+    <div class="stat-text">power;</div>
     <div class="power-bar" style="width: ; ">
-        <div class="percent-bar" id="bar4" style="  background: green">0</div>
+        <div class="percent-bar" id="bar4" style="  background: green">
+            <div class="bar-text">
+                <div class="stat-text-bar">Strength</div>
+                <div class="power-rating">0</div>
+            </div>
+        </div>
     </div>
-    <div class="stat-text">["speeed"];</div>
+
+    <div class="stat-text">speed;</div>
     <div class="power-bar" style="width: ;">
-        <div class="percent-bar" id="bar5" style=" background: purple">0</div>
+        <div class="percent-bar" id="bar5" style=" background: purple">
+            <div class="bar-text">
+                <div class="stat-text-bar">Speed</div>
+                <div class="power-rating">0</div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -103,19 +134,18 @@
     {
     <script>
 
-
     var userObj = @Html.Raw(Json.Encode(Model));
 
     $(document).ready(function () {
 
         $("button").click(function () {
-
+           
             var combatStyle = document.getElementById("bar1");
             var durabilityStyle = document.getElementById("bar2");
             var intelligenceStyle = document.getElementById("bar3");
             var powerStyle = document.getElementById("bar4");
             var speedStyle = document.getElementById("bar5");
-          
+
             move(combatStyle, "combat");
             move(durabilityStyle, "durability");
             move(intelligenceStyle, "intelligence");
@@ -137,8 +167,9 @@
                     width++;
                     bar.style.width = width + '%';
                     bar.getElementsByClassName('power-rating')[0].innerHTML = width;
-                    if (width > 50) {
-                        
+                    if (width > statInt[stat]/2) {
+                        $(".stat-text-bar").fadeIn();
+                        bar.getElementsByClassName('bar-text')[0].style.justifyContent = "space-between";
                     }
                 }
             }
