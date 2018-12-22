@@ -1,51 +1,150 @@
-﻿@model string
+﻿
 
 @{
     ViewBag.Title = "Home Page";
+    var userObj = @Html.Raw(Json.Encode(Model));
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/Content/grid.css" />
+    </head>
 }
-
-
-<head>
-    <link rel="stylesheet" type="text/css" href="~/Content/grid.css"/>
-</head>
-
-
-@Model.ToString()
-<div class="grid-container">
-    <div class="item item1">1</div>
-    <div class="item item2">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
-    <div class="item">5</div>
-    <div class="item">6</div>
-    <div class="item">7</div>
-    <div class="item">8</div>
-    <div class="item">9</div>
-    <div class="item">10</div>
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
-    <div class="item">5</div>
-    <div class="item">6</div>
-    <div class="item">7</div>
-    <div class="item">8</div>
-    <div class="item">9</div>
-    <div class="item">10</div>
-</div>
-
 <style>
-    .grid-container{
+    .power-bar {
+        border: 2px solid black;
+        border-radius: 0 50px 50px 0;
+        background-color: white;
+        overflow: hidden;
+        
+    }
+
+    .percent-bar {
+        height: 20px;
+        width: 0;
+    }
+
+    .grid-container {
         display: grid;
         grid-gap: 20px;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-columns: repeat(auto-fill, 250px);
-        grid-template-rows: repeat(200)
+        grid-template-columns: 200px 1fr;
         justify-content: space-between;
     }
 
-    .item1
-    {
+    .item1 {
         grid-row: span 5;
     }
+
+    .stat-text{
+        background-color: transparent;
+    }
+
+    .stat-text-bar {
+        display: none;
+    }
+
+    @@media (max-width: 600px){
+        .grid-container {
+            grid-template-columns: 100px 1fr;
+            grid-gap: 20px;
+        }
+    }
+
+    @@media(max-width: 400px){
+        .grid-container {
+            grid-template-columns: 1fr;
+        }
+        .stat-text{
+           display:none;
+        }
+    }
+
 </style>
+
+
+
+
+
+<div class="grid-container">
+
+    <div class="stat-text">combat</div>
+    <div class="power-bar">
+        <div class="percent-bar" id="bar1" style=" background: yellow">
+            <div style="">
+                <div class="stat-text-bar">combat</div>
+                <div class="power-rating">0</div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-text">["dura"];</div>
+    <div class="power-bar" style="width: ;">
+        <div class="percent-bar" id="bar2" style="  background: blue">0</div>
+    </div>
+
+    <div class="stat-text">["int"];</div>
+    <div class="power-bar" style="width: ;">
+        <div class="percent-bar" id="bar3" style=" background: red">0</div>
+    </div>
+
+    <div class="stat-text">["power"];</div>
+    <div class="power-bar" style="width: ; ">
+        <div class="percent-bar" id="bar4" style="  background: green">0</div>
+    </div>
+    <div class="stat-text">["speeed"];</div>
+    <div class="power-bar" style="width: ;">
+        <div class="percent-bar" id="bar5" style=" background: purple">0</div>
+    </div>
+
+</div>
+
+<button class="button">click</button>
+
+
+@section scripts
+    {
+    <script>
+
+
+    var userObj = @Html.Raw(Json.Encode(Model));
+
+    $(document).ready(function () {
+
+        $("button").click(function () {
+
+            var combatStyle = document.getElementById("bar1");
+            var durabilityStyle = document.getElementById("bar2");
+            var intelligenceStyle = document.getElementById("bar3");
+            var powerStyle = document.getElementById("bar4");
+            var speedStyle = document.getElementById("bar5");
+          
+            move(combatStyle, "combat");
+            move(durabilityStyle, "durability");
+            move(intelligenceStyle, "intelligence");
+            move(powerStyle, "power");
+            move(speedStyle, "speed");
+
+        });
+
+        function move(bar, stat) {
+            var width = 0;
+            var id = setInterval(frame, 12);
+            var statInt = userObj.results[0]["powerstats"];
+
+            function frame() {
+                if (width >= statInt[stat]) {
+                    clearInterval(id);
+
+                } else {
+                    width++;
+                    bar.style.width = width + '%';
+                    bar.getElementsByClassName('power-rating')[0].innerHTML = width;
+                    if (width > 50) {
+                        
+                    }
+                }
+            }
+        }
+    });
+
+    </script>
+}
+

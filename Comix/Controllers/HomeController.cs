@@ -14,18 +14,18 @@ namespace Comix.Controllers
     public class HomeController : Controller
     {
 
-        public JsonResult Index()
+        public ActionResult Index()
         {
+
             var response = ApiHelper.HeroContext.GetCharaterId("spider-man");
-            var test = new JavaScriptSerializer().Deserialize<object>(response);
-            return Json(test, JsonRequestBehavior.AllowGet);
+            return View(response);
+            //var response = ApiHelper.HeroContext.GetCharaterId("spider-man");
+            //return Json(response, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult About(int currentPage=2, int pageSize=10)
         {
-            
-
             var response = ApiHelper.MarvelClient.FindCharacters(
                 new CharacterRequestFilter {
                     Offset = currentPage, Limit= pageSize

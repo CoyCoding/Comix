@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -7,30 +8,31 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace Comix.Models
 {
-    public abstract class PowerLevelApiClient
+    public class PowerLevelApiClient
     {
 
-        protected readonly string Key;
-        protected readonly WebClient HeroClient;
+        private readonly string Key;
+        private readonly WebClient HeroClient;
 
         public string BaseUrl { get; set; }
 
-        protected PowerLevelApiClient(string key)
+        public PowerLevelApiClient(string key)
         {
             this.Key = key;
             HeroClient = new WebClient(); 
         }
 
-        internal string GetCharaterId(string name)
+        internal object GetCharaterId(string name)
         {
-            var data = new Uri("https://superheroapi.com/api.php/2000160380031550/search/spider-man");
-            var response = HeroClient.DownloadString(data);
-            
-        
-            return response;
+            var uri = "https://superheroapi.com/api.php/" + Key + "/search/" + name;
+            var stringResponse = HeroClient.DownloadString(new Uri(uri));
+            return new JavaScriptSerializer().Deserialize<object>(stringResponse);
         }
+
+        
     }
 }

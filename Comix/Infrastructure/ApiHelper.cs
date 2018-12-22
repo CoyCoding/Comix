@@ -23,7 +23,7 @@ namespace Comix.Infrastructure
         public static void InitializeClient()
         { 
             MarvelClient = new MarvelRestClient(MarvelpublicKey, MarvelprivateKey);
-            HeroContext = new PowerLevelClient(HeroKey);
+            HeroContext = new PowerLevelApiClient(HeroKey);
             
         }
     }
