@@ -1,31 +1,33 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    <link rel="stylesheet" type="text/css" href="~/Content/power-ranking.css" />
 }
 <style>
+    .wrapper {
+        background: url(https://i.etsystatic.com/13321089/r/il/1cf2d2/1070657099/il_570xN.1070657099_l1ia.jpg);
+    }
 
     .character-grid {
         display: grid;
         grid-template-areas: "character-name character-img" "bio character-img";
-        background: linear-gradient(to right, #0000009e, #000000), 
-            linear-gradient(to bottom, #000000c7, #000000a6), 
-            url(https://i.etsystatic.com/13321089/r/il/1cf2d2/1070657099/il_570xN.1070657099_l1ia.jpg)
+        background: linear-gradient(to right, #0000009e, #000000), linear-gradient(to bottom, #000000c7, #000000a6);
     }
 
-    .character-name{
+    .character-name {
         grid-area: character-name;
         align-self: flex-end;
     }
 
-    .bio{
+    .bio {
         grid-area: bio;
         margin: 10px 0 10px 0;
         color: ghostwhite;
     }
 
-    .bio p {
-        margin: 0 5% 10% 10%;
+        .bio p {
+            margin: 0 5% 10% 10%;
             text-shadow: 0px 0 2px whitesmoke;
-    }
+        }
 
     .character-name h2 {
         margin: 0 0 0 5%;
@@ -63,6 +65,7 @@
             grid-template-rows: none;
             justify-items: center;
         }
+
         .character-name h2 {
             margin: 10px 0 10px 0;
         }
@@ -80,37 +83,167 @@
         }
     }
 
-    .info 
-    {
-        height:500px;
-        background-color: darkolivegreen;
+    .info {
+        height: 100%;
+        padding: 50px;
+        background-color: #1a1a1a;
+        background: linear-gradient(to top right, #000000c9, #000000fa);
     }
-
 </style>
-<div>
-    <div class="wrapper ">
-            <header class="character-grid">
 
-                <div class="character-img">
-                    <div class="shadow">
-                        <img class="head-image" src="http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg" />
+<div class="wrapper ">
+    <section class="header">
+        <header class="character-grid">
+
+            <div class="character-img">
+                <div class="shadow">
+                    <img class="head-image" src="http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg" />
+                </div>
+            </div>
+
+            <div class="character-name">
+                <h2>Mr. Fantastic</h2>
+            </div>
+
+            <div class="bio">
+                <p>
+                    Reed Richards was born in Central City, California the only son of wealthy physicist Nathaniel Richards and his wife Evelyn,
+                    was a child prodigy with special aptitude in mathematics, physics, and mechanics. Evelyn died when Reed was seven.
+                </p>
+            </div>
+        </header>
+    </section>
+    <section class="info">
+        <div class="grid-container">
+            @*<div class="stat-text">Intelligence</div>*@
+            <div class="power-bar">
+                <div class="percent-bar" id="intelligence" style=" background: yellow">
+                    <div class="bar-text">
+                        <div class="stat-text-bar"><p>Intelligence</p></div>
+                        <div class="power-rating">0</div>
+
                     </div>
                 </div>
+            </div>
 
-                <div class="character-name">
-                        <h2>Mr. Fantastic</h2>
+            @*<div class="stat-text">Strength</div>*@
+            <div class="power-bar">
+                <div class="percent-bar" id="strength" style="  background: blue">
+                    <div class="bar-text">
+                        <div class="stat-text-bar"><p>Strength</p></div>
+                        <div class="power-rating"><p>0</p></div>
+                    </div>
                 </div>
+            </div>
 
-                <div class="bio">
-                      <p>
-                            Reed Richards was born in Central City, California the only son of wealthy physicist Nathaniel Richards and his wife Evelyn,
-                            was a child prodigy with special aptitude in mathematics, physics, and mechanics. Evelyn died when Reed was seven.
-                      </p>
-                 </div>
-            </header>
-            
-            <section class="info">
+            @*<div class="stat-text">Durability</div>*@
+            <div class="power-bar">
+                <div class="percent-bar" id="durability" style=" background: darkred">
+                    <div class="bar-text">
+                        <div class="stat-text-bar"><p>Durability</p></div>
+                        <div class="power-rating">0</div>
+                    </div>
+                </div>
+            </div>
 
-            </section>
-    </div>
+            @*<div class="stat-text">Speed</div>*@
+            <div class="power-bar">
+                <div class="percent-bar" id="speed" style="  background: green">
+                    <div class="bar-text">
+                        <div class="stat-text-bar"><p>Speed</p></div>
+                        <div class="power-rating">0</div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="stat-text">Combat</div>*@
+            <div class="power-bar">
+                <div class="percent-bar" id="combat" style=" background: purple">
+                    <div class="bar-text">
+                        <div class="stat-text-bar"><p>Combat</p></div>
+                        <div class="power-rating">0</div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="stat-text">Overall</div>*@
+            <div class="power-bar">
+                <div class="percent-bar" id="power" style=" background: orange">
+                    <div class="bar-text">
+                        <div class="stat-text-bar"><p>Overall</p></div>
+                        <div class="power-rating">0</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
 </div>
+
+@section scripts
+    {
+    <script>
+
+    var userObj = @Html.Raw(Json.Encode(Model));
+
+    $(document).ready(function () {
+
+        //temp button for testing for the statbars
+        //$(".button").click(function () {
+
+            //check for successful api call
+            if(userObj)
+                statSelection().forEach((stat) => {
+                    statBar = document.getElementById(stat)
+                    if (userObj.response === "success")
+                    {
+                        move(statBar, stat);
+                    }
+                    else
+                    {
+                        move(statBar, null);
+                    }
+                });
+        });
+
+        //returns array of statnames
+        function statSelection() {
+            return ["combat", "durability", "intelligence", "speed", "strength", "power"];
+        }
+
+        //animate and move statbars based bar = domElement; stat = int;
+        function move(bar, stat) {
+            var width = 0;
+            console.log(hasStat());
+            var statInt = (hasStat()) ? userObj.results[0]["powerstats"][stat] : 100;
+            //console.log(statInt === null);
+            var id = setInterval(frame, 12);
+
+
+            function frame() {
+                if (width >= statInt) {
+                    clearInterval(id);
+
+                } else {
+                    width++;
+                    bar.style.width = width + '%';
+                    bar.getElementsByClassName('power-rating')[0].innerHTML = (hasStat()) ? width : '?';
+                    if (width > statInt/2) {
+                        $(".stat-text-bar").fadeIn();
+                        bar.getElementsByClassName('bar-text')[0].style.justifyContent = "space-between";
+                    }
+                }
+            }
+
+            function hasStat() {
+                if ((stat !== null && stat !== "null") && userObj.results[0]["powerstats"][stat] !== "null") {
+                    return true;
+                }
+                return false;
+            }
+        };
+   // });
+
+    </script>
+}

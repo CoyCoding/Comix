@@ -13,11 +13,11 @@ namespace Comix.Controllers
 {
     public class HomeController : Controller
     {
-
-        public ActionResult Index()
+        
+        public ActionResult Index(string heroName)
         {
 
-            var response = ApiHelper.HeroContext.GetCharaterId("spider-man");
+            var response = ApiHelper.HeroContext.GetCharaterId(heroName);
             return View(response);
             //var response = ApiHelper.HeroContext.GetCharaterId("spider-man");
             //return Json(response, JsonRequestBehavior.AllowGet);
@@ -47,11 +47,10 @@ namespace Comix.Controllers
             return View(characterList);
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(string heroName)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var response = ApiHelper.HeroContext.GetCharaterId(heroName);
+            return View(response);
         }
     }
 }

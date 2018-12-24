@@ -2,143 +2,95 @@
 
 @{
     ViewBag.Title = "Home Page";
-
-        <link rel="stylesheet" type="text/css" href="~/Content/grid.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/power-ranking.css" />
+        
 }
 <style>
-    .power-bar {
-        border: 2px solid black;
-        border-radius: 0 50px 50px 0;
-        background-color: white;
-        overflow: hidden;
-        box-shadow: -2px 0px 11px black inset;
-    }
-
-    .percent-bar {
-        height: 20px;
-        width: 0;
-    }
-
-    .power-rating{
-        padding-right: 5px;
-
-    }
-
-    .grid-container {
-        display: grid;
-        grid-gap: 20px;
-        grid-template-columns: 200px 1fr;
-        justify-content: space-between;
-    }
-
-    .item1 {
-        grid-row: span 5;
-    }
-
-    .stat-text {
-        background-color: transparent;
-    }
-
-    .bar-text {
+    .search {
         display: flex;
-        justify-content: flex-end;
-        color: #ffffff;
-        box-shadow: -20px 0px 20px 3px black inset;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 
-    .stat-text-bar {
-        display: none;
-        font-weight: 400;
-        box-shadow: 20px -1px 50px 0px black;
-        padding-right: 5px;
-        padding-left: 5px;
-        width: 65px;
-        text-align: center;
+    body{
+        margin: 50px 5% 0 5%;
     }
-
-    @@media (max-width: 600px) {
-        .grid-container {
-            grid-template-columns: 100px 1fr;
-            grid-gap: 20px;
-        }
+    .stat-text-bar p {
+        text-shadow: -1px 0 black, 0 1px black, 
+            1px 0 black, 0 -1px black, 0 0 8px black,
+            0px 0 5px black, 0 0 5px black;
+        margin: 0;
     }
-
-    @@media(max-width: 400px) {
-        .grid-container {
-            grid-template-columns: 1fr;
-        }
-
-        .stat-text {
-            display: none;
-        }
-       
-    }
-
+  
 
 </style>
 
-
-
-
+<div>
+    <div class="search">
+        @*@using(Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            @Html.TextBox("heroName")<input type="submit" value="search" />
+        }*@
+    </div>
+</div>
 
 <div class="grid-container">
-
-    <div class="stat-text">Intelligence</div>
+    @*<div class="stat-text">Intelligence</div>*@
     <div class="power-bar">
         <div class="percent-bar" id="intelligence" style=" background: yellow">
             <div class="bar-text">
-                <div class="stat-text-bar">Intelligence</div>
+                <div class="stat-text-bar"><p>Intelligence</p></div>
                 <div class="power-rating">0</div>
 
             </div>
         </div>
     </div>
 
-    <div class="stat-text">Strength</div>
+    @*<div class="stat-text">Strength</div>*@
     <div class="power-bar">
         <div class="percent-bar" id="strength" style="  background: blue">
             <div class="bar-text">
-                <div class="stat-text-bar">Strength</div>
-                <div class="power-rating">0</div>
+                <div class="stat-text-bar"><p>Strength</p></div>
+                <div class="power-rating"><p>0</p></div>
             </div>
         </div>
     </div>
 
-    <div class="stat-text">Durability</div>
+    @*<div class="stat-text">Durability</div>*@
     <div class="power-bar">
         <div class="percent-bar" id="durability" style=" background: darkred">
             <div class="bar-text">
-                <div class="stat-text-bar">Durability</div>
+                <div class="stat-text-bar"><p>Durability</p></div>
                 <div class="power-rating">0</div>
             </div>
         </div>
     </div>
 
-    <div class="stat-text">Speed</div>
+    @*<div class="stat-text">Speed</div>*@
     <div class="power-bar" >
         <div class="percent-bar" id="speed" style="  background: green">
             <div class="bar-text">
-                <div class="stat-text-bar">Speed</div>
+                <div class="stat-text-bar"><p>Speed</p></div>
                 <div class="power-rating">0</div>
             </div>
         </div>
     </div>
 
-    <div class="stat-text">Combat</div>
+    @*<div class="stat-text">Combat</div>*@
     <div class="power-bar">
         <div class="percent-bar" id="combat" style=" background: purple">
             <div class="bar-text">
-                <div class="stat-text-bar">Combat</div>
+                <div class="stat-text-bar"><p>Combat</p></div>
                 <div class="power-rating">0</div>
             </div>
         </div>
     </div>
 
-    <div class="stat-text">Overall</div>
+    @*<div class="stat-text">Overall</div>*@
     <div class="power-bar">
         <div class="percent-bar" id="power" style=" background: orange">
             <div class="bar-text">
-                <div class="stat-text-bar">Overall</div>
+                <div class="stat-text-bar"><p>Overall</p></div>
                 <div class="power-rating">0</div>
             </div>
         </div>
@@ -146,7 +98,6 @@
 
 </div>
 
-<button class="button">click</button>
 
 
 @section scripts
@@ -154,22 +105,25 @@
     <script>
 
     var userObj = @Html.Raw(Json.Encode(Model));
-
+    
     $(document).ready(function () {
 
         //temp button for testing for the statbars
-        $("button").click(function () {
+        //$(".button").click(function () {
 
             //check for successful api call
-            if (userObj.response === "success") {
+            if(userObj)
                 statSelection().forEach((stat) => {
                     statBar = document.getElementById(stat)
+                    if (userObj.response === "success")
+                    {
                         move(statBar, stat);
+                    }
+                    else
+                    {
+                        move(statBar, null);
+                    }       
                 });
-            } else {
-                
-            }
-
         });
 
         //returns array of statnames
@@ -179,26 +133,36 @@
 
         //animate and move statbars based bar = domElement; stat = int;
         function move(bar, stat) {
-            var width = 5;
+            var width = 0;
+            console.log(hasStat());
+            var statInt = (hasStat()) ? userObj.results[0]["powerstats"][stat] : 100;
+            //console.log(statInt === null);
             var id = setInterval(frame, 12);
-            var statInt = userObj.results[0]["powerstats"];
+            
 
             function frame() {
-                if (width >= statInt[stat]) {
+                if (width >= statInt) {
                     clearInterval(id);
 
                 } else {
                     width++;
                     bar.style.width = width + '%';
-                    bar.getElementsByClassName('power-rating')[0].innerHTML = width;
-                    if (width > statInt[stat]/2) {
+                    bar.getElementsByClassName('power-rating')[0].innerHTML = (hasStat()) ? width : '?';
+                    if (width > statInt/2) {
                         $(".stat-text-bar").fadeIn();
                         bar.getElementsByClassName('bar-text')[0].style.justifyContent = "space-between";
                     }
                 }
             }
+
+            function hasStat() {
+                if ((stat !== null && stat !== "null") && userObj.results[0]["powerstats"][stat] !== "null") {
+                    return true;
+                }
+                return false;
+            }
         };
-    });
+   // });
 
     </script>
 }

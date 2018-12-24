@@ -16,7 +16,7 @@ namespace Comix.Models
     {
 
         private readonly string Key;
-        private readonly WebClient HeroClient;
+        private WebClient HeroClient;
 
         public string BaseUrl { get; set; }
 
@@ -37,13 +37,12 @@ namespace Comix.Models
             }
             catch (Exception)
             {
-                HeroClient.CancelAsync();
+                HeroClient = new WebClient();
                 this.GetCharaterId(name);
             }
 
             return null;
         }
 
-        
     }
 }
