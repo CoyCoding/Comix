@@ -29,8 +29,19 @@ namespace Comix.Models
         internal object GetCharaterId(string name)
         {
             var uri = "https://superheroapi.com/api.php/" + Key + "/search/" + name;
-            var stringResponse = HeroClient.DownloadString(new Uri(uri));
-            return new JavaScriptSerializer().Deserialize<object>(stringResponse);
+
+            try
+            {
+                var stringResponse = HeroClient.DownloadString(new Uri(uri));
+                return new JavaScriptSerializer().Deserialize<object>(stringResponse);
+            }
+            catch (Exception)
+            {
+                HeroClient.CancelAsync();
+                this.GetCharaterId(name);
+            }
+
+            return null;
         }
 
         

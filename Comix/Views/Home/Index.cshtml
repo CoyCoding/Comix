@@ -19,6 +19,11 @@
         width: 0;
     }
 
+    .power-rating{
+        padding-right: 5px;
+
+    }
+
     .grid-container {
         display: grid;
         grid-gap: 20px;
@@ -38,13 +43,17 @@
         display: flex;
         justify-content: flex-end;
         color: #ffffff;
-        padding: 0px 5px 0 1px;
         box-shadow: -20px 0px 20px 3px black inset;
     }
 
     .stat-text-bar {
         display: none;
-        
+        font-weight: 400;
+        box-shadow: 20px -1px 50px 0px black;
+        padding-right: 5px;
+        padding-left: 5px;
+        width: 65px;
+        text-align: center;
     }
 
     @@media (max-width: 600px) {
@@ -74,40 +83,20 @@
 
 <div class="grid-container">
 
-    <div class="stat-text">combat</div>
+    <div class="stat-text">Intelligence</div>
     <div class="power-bar">
-        <div class="percent-bar" id="bar1" style=" background: yellow">
-            <div class="bar-text">
-                <div class="stat-text-bar">Combat-Skill</div>
-                <div class="power-rating">0</div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="stat-text">dura</div>
-    <div class="power-bar" style="width: ;">
-        <div class="percent-bar" id="bar2" style="  background: blue">
-            <div class="bar-text">
-                <div class="stat-text-bar">Durability</div>
-                <div class="power-rating">0</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="stat-text">int";</div>
-    <div class="power-bar" style="width: ;">
-        <div class="percent-bar" id="bar3" style=" background: red">
+        <div class="percent-bar" id="intelligence" style=" background: yellow">
             <div class="bar-text">
                 <div class="stat-text-bar">Intelligence</div>
                 <div class="power-rating">0</div>
+
             </div>
         </div>
     </div>
 
-    <div class="stat-text">power;</div>
-    <div class="power-bar" style="width: ; ">
-        <div class="percent-bar" id="bar4" style="  background: green">
+    <div class="stat-text">Strength</div>
+    <div class="power-bar">
+        <div class="percent-bar" id="strength" style="  background: blue">
             <div class="bar-text">
                 <div class="stat-text-bar">Strength</div>
                 <div class="power-rating">0</div>
@@ -115,11 +104,41 @@
         </div>
     </div>
 
-    <div class="stat-text">speed;</div>
-    <div class="power-bar" style="width: ;">
-        <div class="percent-bar" id="bar5" style=" background: purple">
+    <div class="stat-text">Durability</div>
+    <div class="power-bar">
+        <div class="percent-bar" id="durability" style=" background: darkred">
+            <div class="bar-text">
+                <div class="stat-text-bar">Durability</div>
+                <div class="power-rating">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-text">Speed</div>
+    <div class="power-bar" >
+        <div class="percent-bar" id="speed" style="  background: green">
             <div class="bar-text">
                 <div class="stat-text-bar">Speed</div>
+                <div class="power-rating">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-text">Combat</div>
+    <div class="power-bar">
+        <div class="percent-bar" id="combat" style=" background: purple">
+            <div class="bar-text">
+                <div class="stat-text-bar">Combat</div>
+                <div class="power-rating">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-text">Overall</div>
+    <div class="power-bar">
+        <div class="percent-bar" id="power" style=" background: orange">
+            <div class="bar-text">
+                <div class="stat-text-bar">Overall</div>
                 <div class="power-rating">0</div>
             </div>
         </div>
@@ -138,24 +157,29 @@
 
     $(document).ready(function () {
 
+        //temp button for testing for the statbars
         $("button").click(function () {
-           
-            var combatStyle = document.getElementById("bar1");
-            var durabilityStyle = document.getElementById("bar2");
-            var intelligenceStyle = document.getElementById("bar3");
-            var powerStyle = document.getElementById("bar4");
-            var speedStyle = document.getElementById("bar5");
 
-            move(combatStyle, "combat");
-            move(durabilityStyle, "durability");
-            move(intelligenceStyle, "intelligence");
-            move(powerStyle, "power");
-            move(speedStyle, "speed");
+            //check for successful api call
+            if (userObj.response === "success") {
+                statSelection().forEach((stat) => {
+                    statBar = document.getElementById(stat)
+                        move(statBar, stat);
+                });
+            } else {
+                
+            }
 
         });
 
+        //returns array of statnames
+        function statSelection() {
+            return ["combat", "durability", "intelligence", "speed", "strength", "power"];
+        }
+
+        //animate and move statbars based bar = domElement; stat = int;
         function move(bar, stat) {
-            var width = 0;
+            var width = 5;
             var id = setInterval(frame, 12);
             var statInt = userObj.results[0]["powerstats"];
 
@@ -173,7 +197,7 @@
                     }
                 }
             }
-        }
+        };
     });
 
     </script>

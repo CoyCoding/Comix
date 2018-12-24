@@ -14,7 +14,7 @@ namespace Comix.Infrastructure
     {
         const string MarvelpublicKey = "111";
         const string MarvelprivateKey = "111";
-        const string HeroKey = "2000";
+        const string HeroKey = "200";
 
         public static MarvelRestClient MarvelClient { get; set; }
 
